@@ -38,7 +38,7 @@ struct Args {
     #[arg(long, default_value_t = 80)]
     port: u16,
 
-    /// If present, serve at http://127.0.0.1:<port> Otherwise serve at http://0.0.0.0:<port>
+    /// If present, serve at http://0.0.0.0:<port> Otherwise serve at http://127.0.0.1:<port>
     #[arg(long, default_value_t = false)]
     allowlocal: bool,
 }
@@ -76,13 +76,13 @@ By Nick Archer :)
         Some(user_path) => match Path::new(user_path.as_str().into()).is_dir() {
             true => user_path,
             false => {
-                return Err(format!("The path provided does not exist `--path {user_path}`").into());
+                return Err(format!("The path provided does not exist `--path {user_path}`. Use --help for more info.").into());
             }
         },
         None => match Path::new("./static/").is_dir() {
             true => "./static/".into(),
             false => {
-                return Err("The default path `./static/` is not a folder or does not exist. Please either move your website files into a folder called `./static/` or use powershell /command prompt provide a path like `warp-static-server.exe --path \"some path/to website/files/\"`".into());
+                return Err("The default path `./static/` is not a folder or does not exist. Please either move your website files into a folder called `./static/` or use powershell /command prompt provide a path like `warp-static-server.exe --path \"some path/to website/files/\"`. Use --help for more info.".into());
             }
         },
     };
